@@ -90,6 +90,10 @@ python insert_documents.py
 uvicorn app.main:app --reload
 ```
 
+### 8. 打开网页 index.html
+
+在浏览器中访问 [URL](http://localhost:63343/Intelligent-document-QA-system/index.html)，即可使用问答系统。
+
 ---
 
 ## ✨ 示例 API

@@ -10,7 +10,7 @@ def test_mysql_connection():
     mysql_config = {
         "host": "localhost",
         "user": "root",
-        "password": "example",
+        "password": "123456",
         "database": "document_qa",
         "raise_on_warnings": True,
         "use_pure": True,
