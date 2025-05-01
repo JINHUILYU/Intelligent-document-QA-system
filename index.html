@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>智能文档问答系统</title>
+</head>
+<body>
+  <h2>智能问答</h2>
+  <input type="text" id="queryInput" placeholder="请输入问题" style="width: 300px;" />
+  <button onclick="sendQuery()">提交</button>
+
+  <h3>回答：</h3>
+  <pre id="responseText"></pre>
+
+  <script>
+    async function sendQuery() {
+      const query = document.getElementById("queryInput").value;
+      const responseElem = document.getElementById("responseText");
+
+      const response = await fetch("http://localhost:8000/ask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ query_text: query })
+      });
+
+      const data = await response.json();
+      responseElem.textContent = data.answer;
+    }
+  </script>
+</body>
+</html>
