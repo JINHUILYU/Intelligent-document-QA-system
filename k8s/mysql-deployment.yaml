@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docqa-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docqa-mysql
+  template:
+    metadata:
+      labels:
+        app: docqa-mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "123456"
+            - name: MYSQL_DATABASE
+              value: "document_qa"
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-data
+          emptyDir: {}  # 或替换为 PersistentVolumeClaim

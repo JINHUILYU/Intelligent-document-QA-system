@@ -22,8 +22,15 @@
 ├── main.py # 启动入口
 ├── rag.py # 语义检索 + 文档生成逻辑
 ├── redis_cache.py # Redis 缓存工具
+├── redis_client.py # Redis 客户端
 ├── db.py # 数据库连接工具
-├── insert_documents.py # 插入知识库内容 
+├── docker-compose.yml # Docker Compose 文件
+├── Dockerfile # Dockerfile
+├── index.html # 前端页面
+├── insert_documents.py # 插入知识库内容
+├── llm_client.py # LLM 客户端
+├── mysql.sql # MySQL 数据库初始化脚本
+├── save_embeddings_to_redis.py # 将嵌入存储到 Redis
 ├── requirements.txt 
 ├── README.md 
 ├── .gitignore
@@ -131,9 +138,28 @@ POST /ask
 
 ---
 
-## 📖 RAG 原理
+## 📖 RAG
 
-本项目使用简化版 RAG：
+### 🤖 当前的 RAG 流程
+
+RAG（Retrieval-Augmented Generation）是一种结合检索和生成的模型架构，旨在提高自然语言处理任务的性能。其核心思想是通过检索相关文档来增强生成模型的上下文信息，从而生成更准确和相关的回答。
+```
+                [用户输入 query]
+                         │
+                         ▼
+               [LLM客户端 + 向量化 query]
+                         │
+                         ▼
+     [Redis 中做向量相似度检索 → 得到最相关的文档ID]
+                         │
+                         ▼
+   [用这些文档ID从 MySQL 中查出原始 content 组成上下文]
+                         │
+                         ▼
+           [将 query + 上下文 发送给 LLM 生成答案]
+```
+
+### 本项目使用简化版 RAG
 
 1. 将问题与所有文档语义对比，取相似度最高的内容。
 2. 拼接为上下文传给语言模型生成答案。

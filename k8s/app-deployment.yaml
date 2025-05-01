@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docqa-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docqa
+  template:
+    metadata:
+      labels:
+        app: docqa
+    spec:
+      containers:
+        - name: docqa
+          image: your-dockerhub-username/docqa-app:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: REDIS_HOST
+              value: "docqa-redis"
+            - name: MYSQL_HOST
+              value: "docqa-mysql"
+            - name: MYSQL_USER
+              value: "root"
+            - name: MYSQL_PASSWORD
+              value: "123456"
+            - name: MYSQL_DB
+              value: "document_qa"

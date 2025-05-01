@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docqa-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docqa-redis
+  template:
+    metadata:
+      labels:
+        app: docqa-redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"

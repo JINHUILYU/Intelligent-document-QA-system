@@ -1,23 +1,39 @@
-version: "3"
+version: '3.8'
+
 services:
-  api:
+  app:
     build: .
+    container_name: docqa_app
     ports:
       - "8000:8000"
     depends_on:
-      - mysql
       - redis
+      - mysql
+    environment:
+      - REDIS_HOST=redis
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+      - MYSQL_DB=document_qa
+
+  redis:
+    image: redis:7
+    container_name: docqa_redis
+    ports:
+      - "6379:6379"
 
   mysql:
-    image: mysql:5.7
+    image: mysql:8
+    container_name: docqa_mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: document_qa
     ports:
       - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql.sql:/docker-entrypoint-initdb.d/mysql.sql
 
-  redis:
-    image: redis
-    ports:
-      - "6379:6379"
+volumes:
+  mysql_data:

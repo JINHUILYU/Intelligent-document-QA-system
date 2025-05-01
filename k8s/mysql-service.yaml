@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: docqa-mysql
+spec:
+  selector:
+    app: docqa-mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
+  clusterIP: None  # 或使用 ClusterIP
