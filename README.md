@@ -40,10 +40,23 @@
 ### 1. 克隆项目
 
 ```bash
-  git clone
+git clone https://github.com/JINHUILYU/Intelligent-document-QA-system
 ```
 
-### 1. 安装依赖
+### 2. 进入项目目录
+
+```bash
+cd Intelligent-document-QA-system
+```
+
+### 3. 创建虚拟环境（可选）
+
+```bash
+conda create -n document_qa python=3.13
+conda activate document_qa
+```
+
+### 4. 安装依赖
 
 ```bash
 pip install -r requirements.txt
@@ -51,7 +64,7 @@ pip install -r requirements.txt
 
 > 你需要确保本地已安装并启动 **MySQL** 和 **Redis**。
 
-### 2. 初始化数据库
+### 5. 初始化数据库
 
 ```sql
 -- 使用你的 MySQL 客户端执行以下命令：
@@ -65,13 +78,13 @@ CREATE TABLE documents (
 );
 ```
 
-### 3. 插入测试文档
+### 6. 插入测试文档
 
 ```bash
-python app/insert_documents.py
+python insert_documents.py
 ```
 
-### 4. 启动服务
+### 7. 启动服务
 
 ```bash
 uvicorn app.main:app --reload
@@ -128,4 +141,4 @@ POST /ask
 
 ## 📝 License
 
-本项目仅供学习和研究使用，未授权商用。
+本项目基于 MIT License 开源。
