@@ -94,7 +94,7 @@ python insert_documents.py
 ### 7. 启动服务
 
 ```bash
-uvicorn app.main:app --reload
+uvicorn main:app --reload
 ```
 
 ### 8. 打开网页 index.html
